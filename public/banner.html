@@ -3,297 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Know Your Boo — Social Media Banner</title>
+<title>Know Your Boo — Banner Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Caveat:wght@600;700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'DM Sans',sans-serif;padding:20px;gap:40px}
-
-.label{font-size:.85rem;color:#888;letter-spacing:.5px;font-weight:600;text-transform:uppercase}
-
-/* ============ BANNER CARD ============ */
-.banner{
-  width:1200px;height:630px;
-  position:relative;overflow:hidden;
-  border-radius:0;
-  background:#0D0015;
-  cursor:pointer;
-  flex-shrink:0;
-}
-
-/* Atmospheric gradient layers */
-.banner::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 15% 50%,rgba(168,85,247,.4) 0%,transparent 55%),
-    radial-gradient(ellipse at 85% 30%,rgba(220,60,90,.35) 0%,transparent 50%),
-    radial-gradient(ellipse at 50% 95%,rgba(255,150,50,.2) 0%,transparent 50%),
-    radial-gradient(ellipse at 60% 40%,rgba(255,215,0,.06) 0%,transparent 60%);
-  z-index:1;
-}
-
-/* Dot texture */
-.banner::after{
-  content:'';position:absolute;inset:0;z-index:2;opacity:.35;
-  background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
-  background-size:24px 24px;
-}
-
-.banner-content{
-  position:relative;z-index:3;
-  width:100%;height:100%;
-  display:flex;align-items:center;
-  padding:0 70px;
-}
-
-/* Left side — Text */
-.banner-left{flex:1;display:flex;flex-direction:column;gap:8px}
-
-.banner-icon{font-size:3.2rem;margin-bottom:4px;filter:drop-shadow(0 4px 20px rgba(255,45,120,.4))}
-
-.banner-title{
-  font-family:'Playfair Display',serif;font-weight:900;
-  font-size:4.2rem;line-height:.92;
-  color:#F2D4A0;
-  text-shadow:0 2px 30px rgba(242,212,160,.15);
-}
-.banner-title .love{
-  background:linear-gradient(135deg,#E85D6C,#DC3C5A);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-
-.banner-tagline{
-  font-family:'Caveat',cursive;font-size:2rem;
-  background:linear-gradient(90deg,#E07A7A,#D4668A);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-top:2px;
-}
-
-.banner-sub{
-  font-size:1.1rem;color:rgba(255,255,255,.45);
-  margin-top:6px;line-height:1.5;max-width:420px;
-}
-
-.banner-cta{
-  display:inline-flex;align-items:center;gap:10px;
-  margin-top:18px;
-  padding:14px 36px;border-radius:60px;
-  background:linear-gradient(135deg,#FF5E3A,#FF2D78,#A855F7);
+body{
+  background:#0a0a0a;
   font-family:'DM Sans',sans-serif;
-  font-size:1.05rem;font-weight:700;color:#fff;
-  box-shadow:0 4px 30px rgba(255,94,58,.35);
-  border:none;
-  letter-spacing:.3px;
+  color:#fff;
+  display:flex;flex-direction:column;align-items:center;
+  padding:40px 20px;gap:30px;
+  min-height:100vh;
 }
-.banner-cta .arrow{font-size:1.3rem;transition:transform .3s}
-
-/* Right side — Visual */
-.banner-right{
-  position:relative;
-  width:380px;height:420px;
-  display:flex;align-items:center;justify-content:center;
-}
-
-/* Floating emojis on right */
-.float-emoji{
-  position:absolute;
-  font-size:2rem;
-  opacity:.6;
-  animation:floatBanner 6s ease-in-out infinite;
-}
-.float-emoji:nth-child(1){top:10%;left:5%;animation-delay:0s;font-size:2.4rem}
-.float-emoji:nth-child(2){top:60%;right:5%;animation-delay:1.2s;font-size:1.8rem}
-.float-emoji:nth-child(3){bottom:8%;left:20%;animation-delay:2.4s;font-size:2rem}
-.float-emoji:nth-child(4){top:25%;right:25%;animation-delay:.8s;font-size:2.6rem}
-.float-emoji:nth-child(5){bottom:25%;right:10%;animation-delay:1.8s;font-size:1.6rem}
-.float-emoji:nth-child(6){top:5%;right:40%;animation-delay:3s;font-size:1.4rem}
-
-@keyframes floatBanner{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  50%{transform:translateY(-12px) rotate(5deg)}
-}
-
-/* Glowing orb in center-right */
-.glow-orb{
-  width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,45,120,.25) 0%,rgba(168,85,247,.15) 40%,transparent 70%);
-  position:absolute;
-  filter:blur(30px);
-  animation:orbPulse 4s ease-in-out infinite;
-}
-@keyframes orbPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
-
-.score-preview{
-  position:relative;
-  width:160px;height:160px;
-  border-radius:50%;
-  border:4px solid rgba(255,215,0,.2);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.03);
-  backdrop-filter:blur(20px);
-  box-shadow:0 0 40px rgba(255,215,0,.08);
-}
-.score-preview .num{
-  font-family:'Playfair Display',serif;font-weight:900;
-  font-size:3rem;color:#FFD700;line-height:1;
-}
-.score-preview .lbl{font-size:.75rem;color:rgba(255,255,255,.35);margin-top:2px}
-
-/* Built by watermark */
-.banner-watermark{
-  position:absolute;bottom:24px;right:40px;z-index:4;
-  font-size:.8rem;color:rgba(255,255,255,.2);
-  font-family:'DM Sans',sans-serif;
-}
-
-/* ============ INSTAGRAM STORY SIZE ============ */
-.story{
-  width:1080px;height:1920px;
-  position:relative;overflow:hidden;
-  background:#0D0015;
-  flex-shrink:0;
-}
-.story::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 50% 20%,rgba(168,85,247,.45) 0%,transparent 50%),
-    radial-gradient(ellipse at 30% 70%,rgba(220,60,90,.35) 0%,transparent 50%),
-    radial-gradient(ellipse at 70% 90%,rgba(255,150,50,.2) 0%,transparent 45%);
-  z-index:1;
-}
-.story::after{
-  content:'';position:absolute;inset:0;z-index:2;opacity:.3;
-  background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);
-  background-size:28px 28px;
-}
-.story-content{
-  position:relative;z-index:3;
-  width:100%;height:100%;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;padding:60px 50px;gap:16px;
-}
-.story-icon{font-size:5rem;margin-bottom:8px;filter:drop-shadow(0 4px 30px rgba(255,45,120,.5))}
-.story-title{
-  font-family:'Playfair Display',serif;font-weight:900;
-  font-size:5.5rem;line-height:.9;color:#F2D4A0;
-}
-.story-title .love{
-  background:linear-gradient(135deg,#E85D6C,#DC3C5A);
+h1{
+  font-family:'Playfair Display',serif;font-size:1.6rem;
+  background:linear-gradient(135deg,#F2D4A0,#E07A7A);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
 }
-.story-tagline{
-  font-family:'Caveat',cursive;font-size:3rem;
-  background:linear-gradient(90deg,#E07A7A,#D4668A);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+.subtitle{color:#666;font-size:.85rem;margin-top:-15px}
+.preview{
+  border:1px solid #222;border-radius:12px;overflow:hidden;
+  box-shadow:0 4px 30px rgba(0,0,0,.5);
+  max-width:100%;
 }
-.story-sub{font-size:1.6rem;color:rgba(255,255,255,.4);line-height:1.5;max-width:700px;margin:10px 0}
-.story-features{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:20px 0}
-.story-feat{
-  padding:14px 26px;border-radius:50px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
-  font-size:1.2rem;color:rgba(255,255,255,.6);
+.preview canvas{display:block;max-width:100%;height:auto}
+.label{
+  font-size:.75rem;color:#555;letter-spacing:1px;
+  text-transform:uppercase;font-weight:600;
+  align-self:flex-start;max-width:700px;width:100%;
 }
-.story-cta{
-  margin-top:30px;padding:22px 56px;border-radius:60px;
-  background:linear-gradient(135deg,#FF5E3A,#FF2D78,#A855F7);
-  font-family:'DM Sans',sans-serif;
-  font-size:1.6rem;font-weight:700;color:#fff;
-  box-shadow:0 4px 40px rgba(255,94,58,.35);
-  border:none;letter-spacing:.3px;
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{
+  padding:12px 28px;border-radius:50px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;
+  font-weight:700;cursor:pointer;transition:all .3s;
 }
-.story-url{font-size:1.1rem;color:rgba(255,255,255,.2);margin-top:20px}
-.story-watermark{
-  position:absolute;bottom:50px;z-index:4;
-  font-size:1rem;color:rgba(255,255,255,.2);
+.btn-primary{
+  background:linear-gradient(135deg,#FF5E3A,#FF2D78);color:#fff;
+  box-shadow:0 4px 20px rgba(255,94,58,.3);
 }
-
-/* Scale down for preview */
-.preview-wrap{transform:scale(0.5);transform-origin:top center;margin-bottom:-300px}
-.preview-wrap-story{transform:scale(0.3);transform-origin:top center;margin-bottom:-670px}
+.btn:hover{transform:translateY(-2px)}
+.note{font-size:.75rem;color:#444;text-align:center;max-width:500px;line-height:1.5}
 </style>
 </head>
 <body>
 
-<!-- ======= OG / TWITTER LINK PREVIEW (1200x630) ======= -->
-<div class="label">📐 Link Preview / Twitter Card (1200 × 630)</div>
-<div class="preview-wrap">
-<div class="banner" id="ogBanner">
-  <div class="banner-content">
-    <div class="banner-left">
-      <div class="banner-icon">🔮</div>
-      <div class="banner-title">Know Your<br><span class="love">Boo</span></div>
-      <div class="banner-tagline">The Relationship Oracle 💘</div>
-      <div class="banner-sub">Drop your traits. Drop their traits.<br>Get the truth about your relationship.</div>
-      <div class="banner-cta">Decode Your Relationship <span class="arrow">→</span></div>
-    </div>
-    <div class="banner-right">
-      <div class="glow-orb"></div>
-      <div class="score-preview">
-        <div class="num">?%</div>
-        <div class="lbl">compatible</div>
-      </div>
-      <span class="float-emoji">💘</span>
-      <span class="float-emoji">🔥</span>
-      <span class="float-emoji">💀</span>
-      <span class="float-emoji">🥰</span>
-      <span class="float-emoji">👀</span>
-      <span class="float-emoji">✨</span>
-    </div>
-  </div>
-  <div class="banner-watermark">Built by @__kingmufasa_ ✨</div>
-</div>
-</div>
+<h1>🔮 Banner Generator</h1>
+<p class="subtitle">Download sharp banners for social media</p>
 
-<!-- ======= INSTAGRAM STORY (1080x1920) ======= -->
-<div class="label">📱 Instagram / WhatsApp Story (1080 × 1920)</div>
-<div class="preview-wrap-story">
-<div class="story" id="storyBanner">
-  <div class="story-content">
-    <div class="story-icon">🔮</div>
-    <div class="story-title">Know Your<br><span class="love">Boo</span></div>
-    <div class="story-tagline">The Relationship Oracle 💘</div>
-    <div class="story-sub">Find out who you're really dating.<br>The Oracle sees everything. 👀</div>
-    <div class="story-features">
-      <div class="story-feat">💘 Love Languages</div>
-      <div class="story-feat">🔥 Argument Styles</div>
-      <div class="story-feat">🚩 Red & Green Flags</div>
-      <div class="story-feat">🔮 Compatibility Score</div>
-    </div>
-    <div class="story-cta">Try It Free →</div>
-    <div class="story-url">knowyourboo.vercel.app?ref=banner</div>
-  </div>
-  <div class="story-watermark">Built by @__kingmufasa_ ✨</div>
-</div>
-</div>
+<p class="label">📐 Link Preview / Twitter Card — 1200 × 630</p>
+<div class="preview"><canvas id="ogCanvas" width="1200" height="630"></canvas></div>
 
-<div style="text-align:center;margin:20px 0">
-  <p style="color:#666;font-size:.85rem;margin-bottom:12px">Right-click → Save Image, or use the buttons below</p>
-  <button onclick="exportBanner('ogBanner',1200,630,'knowyourboo-banner.png')" style="padding:12px 24px;border-radius:50px;background:linear-gradient(135deg,#FF5E3A,#FF2D78);color:#fff;border:none;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin:4px">📸 Download Link Banner</button>
-  <button onclick="exportBanner('storyBanner',1080,1920,'knowyourboo-story.png')" style="padding:12px 24px;border-radius:50px;background:linear-gradient(135deg,#A855F7,#FF2D78);color:#fff;border:none;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin:4px">📱 Download Story</button>
+<p class="label">📱 Instagram / WhatsApp Story — 1080 × 1920</p>
+<div class="preview"><canvas id="storyCanvas" width="1080" height="1920"></canvas></div>
+
+<div class="btn-row">
+  <button class="btn btn-primary" onclick="download('ogCanvas','knowyourboo-banner.png')">📸 Download Banner</button>
+  <button class="btn btn-primary" onclick="download('storyCanvas','knowyourboo-story.png')">📱 Download Story</button>
 </div>
+<p class="note">Right-click on any image above to "Save Image As" if the buttons don't work on your device.</p>
 
 <script>
-async function exportBanner(id, w, h, filename) {
-  const el = document.getElementById(id);
-  // Use html2canvas if available, otherwise canvas fallback
-  if (typeof html2canvas !== 'undefined') {
-    const canvas = await html2canvas(el, {width:w, height:h, scale:1, useCORS:true, backgroundColor:'#0D0015'});
-    const link = document.createElement('a');
-    link.download = filename;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  } else {
-    alert('Loading image exporter...');
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-    script.onload = () => exportBanner(id, w, h, filename);
-    document.head.appendChild(script);
+document.fonts.ready.then(() => {
+  drawOGBanner();
+  drawStoryBanner();
+});
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w,y, x+w,y+r);
+  ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w,y+h, x+w-r,y+h);
+  ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x,y+h, x,y+h-r);
+  ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x,y, x+r,y);
+  ctx.closePath();
+}
+
+function drawGlow(ctx, x, y, r, color) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, color);
+  g.addColorStop(1, 'transparent');
+  ctx.fillStyle = g;
+  ctx.fillRect(x - r, y - r, r * 2, r * 2);
+}
+
+// ============================================================
+//  OG BANNER (1200 x 630)
+// ============================================================
+function drawOGBanner() {
+  const c = document.getElementById('ogCanvas');
+  const ctx = c.getContext('2d');
+  const W = 1200, H = 630;
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#0D0015');
+  bg.addColorStop(0.5, '#150A25');
+  bg.addColorStop(1, '#0D0015');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Ambient glows
+  drawGlow(ctx, 120, 300, 350, 'rgba(168,85,247,0.15)');
+  drawGlow(ctx, 900, 200, 300, 'rgba(255,45,120,0.12)');
+  drawGlow(ctx, 600, 550, 250, 'rgba(255,150,50,0.08)');
+
+  // Dot pattern
+  ctx.fillStyle = 'rgba(255,255,255,0.025)';
+  for (let x = 0; x < W; x += 28) for (let y = 0; y < H; y += 28) {
+    ctx.beginPath(); ctx.arc(x+14,y+14,1.2,0,Math.PI*2); ctx.fill();
   }
+
+  ctx.textAlign = 'left';
+
+  // Crystal ball
+  ctx.font = '52px serif';
+  ctx.fillStyle = '#fff';
+  ctx.fillText('🔮', 70, 165);
+
+  // "Know Your"
+  ctx.font = '900 72px "Playfair Display", serif';
+  let g = ctx.createLinearGradient(70,180,400,260);
+  g.addColorStop(0,'#F2D4A0'); g.addColorStop(1,'#E8C17C');
+  ctx.fillStyle = g;
+  ctx.fillText('Know Your', 70, 260);
+
+  // "Boo"
+  g = ctx.createLinearGradient(70,270,280,350);
+  g.addColorStop(0,'#E85D6C'); g.addColorStop(1,'#DC3C5A');
+  ctx.fillStyle = g;
+  ctx.font = '900 88px "Playfair Display", serif';
+  ctx.fillText('Boo', 70, 350);
+
+  // Heart
+  ctx.font = '40px serif';
+  ctx.fillText('💘', 260, 348);
+
+  // Tagline
+  ctx.font = '700 28px "Caveat", cursive';
+  g = ctx.createLinearGradient(70,370,350,400);
+  g.addColorStop(0,'#E07A7A'); g.addColorStop(1,'#D4668A');
+  ctx.fillStyle = g;
+  ctx.fillText('The Relationship Oracle', 70, 405);
+
+  // Subtitle
+  ctx.font = '400 18px "DM Sans", sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fillText('Drop your traits. Drop their traits.', 70, 448);
+  ctx.fillText('Get the truth about your relationship.', 70, 472);
+
+  // CTA Button
+  const bx=70, by=498, bw=320, bh=52, br=30;
+  g = ctx.createLinearGradient(bx,by,bx+bw,by+bh);
+  g.addColorStop(0,'#FF5E3A'); g.addColorStop(0.5,'#FF2D78'); g.addColorStop(1,'#A855F7');
+  ctx.fillStyle = g;
+  roundRect(ctx,bx,by,bw,bh,br); ctx.fill();
+  ctx.shadowColor='rgba(255,94,58,0.3)'; ctx.shadowBlur=20; ctx.fill(); ctx.shadowBlur=0;
+  ctx.font = '700 18px "DM Sans", sans-serif';
+  ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+  ctx.fillText('Decode Your Relationship  →', bx+bw/2, by+33);
+  ctx.textAlign = 'left';
+
+  // Score circle
+  const cx=880, cy=280, cr=85;
+  drawGlow(ctx, cx, cy, 160, 'rgba(255,215,0,0.06)');
+  ctx.beginPath(); ctx.arc(cx,cy,cr,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,215,0,0.2)'; ctx.lineWidth=3; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,cr-2,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,255,0.03)'; ctx.fill();
+
+  ctx.textAlign='center';
+  ctx.font='900 56px "Playfair Display", serif';
+  g = ctx.createLinearGradient(cx-40,cy-30,cx+40,cy+30);
+  g.addColorStop(0,'#FFD700'); g.addColorStop(1,'#FFA500');
+  ctx.fillStyle=g;
+  ctx.fillText('?%', cx, cy+15);
+  ctx.font='400 13px "DM Sans", sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.35)';
+  ctx.fillText('compatible', cx, cy+42);
+
+  // Emojis
+  ctx.font='28px serif';
+  [{e:'💘',x:cx-140,y:cy-80},{e:'🔥',x:cx+130,y:cy-60},{e:'👀',x:cx+120,y:cy+100},
+   {e:'🥰',x:cx-120,y:cy+90},{e:'✨',x:cx+60,y:cy-120},{e:'💀',x:cx-60,y:cy+130}]
+  .forEach(em => { ctx.globalAlpha=0.5; ctx.fillText(em.e,em.x,em.y); });
+  ctx.globalAlpha=1;
+
+  // Watermark
+  ctx.textAlign='right'; ctx.font='400 13px "DM Sans", sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.18)';
+  ctx.fillText('Built by @__kingmufasa_ ✨', W-40, H-25);
+  ctx.textAlign='left'; ctx.fillStyle='rgba(255,255,255,0.12)';
+  ctx.fillText('knowyourboo.vercel.app', 70, H-25);
+}
+
+// ============================================================
+//  STORY BANNER (1080 x 1920)
+// ============================================================
+function drawStoryBanner() {
+  const c = document.getElementById('storyCanvas');
+  const ctx = c.getContext('2d');
+  const W = 1080, H = 1920;
+
+  // Background
+  const bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#0D0015'); bg.addColorStop(0.3,'#150A28');
+  bg.addColorStop(0.7,'#1A0820'); bg.addColorStop(1,'#0D0015');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+  // Glows
+  drawGlow(ctx, W/2, 350, 450, 'rgba(168,85,247,0.18)');
+  drawGlow(ctx, 250, 900, 350, 'rgba(255,45,120,0.12)');
+  drawGlow(ctx, 800, 1400, 300, 'rgba(255,150,50,0.08)');
+
+  // Dots
+  ctx.fillStyle = 'rgba(255,255,255,0.02)';
+  for (let x=0;x<W;x+=32) for (let y=0;y<H;y+=32) {
+    ctx.beginPath(); ctx.arc(x+16,y+16,1.3,0,Math.PI*2); ctx.fill();
+  }
+
+  ctx.textAlign = 'center';
+  const mx = W/2;
+
+  // Crystal ball
+  ctx.font='80px serif'; ctx.fillText('🔮', mx, 420);
+
+  // "Know Your"
+  ctx.font='900 110px "Playfair Display", serif';
+  let g = ctx.createLinearGradient(mx-250,480,mx+250,560);
+  g.addColorStop(0,'#F2D4A0'); g.addColorStop(1,'#E8C17C');
+  ctx.fillStyle=g;
+  ctx.fillText('Know Your', mx, 570);
+
+  // "Boo"
+  ctx.font='900 140px "Playfair Display", serif';
+  g = ctx.createLinearGradient(mx-150,590,mx+150,710);
+  g.addColorStop(0,'#E85D6C'); g.addColorStop(1,'#DC3C5A');
+  ctx.fillStyle=g;
+  ctx.fillText('Boo', mx, 720);
+  ctx.font='56px serif'; ctx.fillText('💘', mx+170, 715);
+
+  // Tagline
+  ctx.font='700 42px "Caveat", cursive';
+  g = ctx.createLinearGradient(mx-200,760,mx+200,800);
+  g.addColorStop(0,'#E07A7A'); g.addColorStop(1,'#D4668A');
+  ctx.fillStyle=g;
+  ctx.fillText('The Relationship Oracle', mx, 800);
+
+  // Subtitle
+  ctx.font='400 28px "DM Sans", sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.4)';
+  ctx.fillText('Find out who you\'re really dating.', mx, 880);
+  ctx.fillText('The Oracle sees everything. 👀', mx, 920);
+
+  // Feature pills
+  const feats = ['💘 Love Languages','🔥 Argument Styles','🚩 Red & Green Flags','🔮 Compatibility Score'];
+  const pw=300, ph=56, pg=24, pr=30;
+  const sx = (W - (2*pw + pg)) / 2;
+  feats.forEach((f,i) => {
+    const col=i%2, row=Math.floor(i/2);
+    const px = sx + col*(pw+pg), py = 1020 + row*(ph+pg);
+    ctx.fillStyle='rgba(255,255,255,0.05)';
+    ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1.5;
+    roundRect(ctx,px,py,pw,ph,pr); ctx.fill(); ctx.stroke();
+    ctx.font='500 22px "DM Sans", sans-serif';
+    ctx.fillStyle='rgba(255,255,255,0.6)';
+    ctx.fillText(f, px+pw/2, py+36);
+  });
+
+  // CTA
+  const bw=380,bh=70,br2=40;
+  const bx2=(W-bw)/2, by2=1220;
+  g = ctx.createLinearGradient(bx2,by2,bx2+bw,by2+bh);
+  g.addColorStop(0,'#FF5E3A'); g.addColorStop(0.5,'#FF2D78'); g.addColorStop(1,'#A855F7');
+  ctx.fillStyle=g;
+  roundRect(ctx,bx2,by2,bw,bh,br2); ctx.fill();
+  ctx.shadowColor='rgba(255,94,58,0.35)'; ctx.shadowBlur=25; ctx.fill(); ctx.shadowBlur=0;
+  ctx.font='700 28px "DM Sans", sans-serif'; ctx.fillStyle='#fff';
+  ctx.fillText('Try It Free  →', mx, by2+46);
+
+  // URL
+  ctx.font='400 22px "DM Sans", sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.2)';
+  ctx.fillText('knowyourboo.vercel.app', mx, 1340);
+
+  // Watermark
+  ctx.font='400 18px "DM Sans", sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.15)';
+  ctx.fillText('Built by @__kingmufasa_ ✨', mx, H-60);
+}
+
+function download(id, fn) {
+  const c = document.getElementById(id);
+  const a = document.createElement('a');
+  a.download = fn; a.href = c.toDataURL('image/png'); a.click();
 }
 </script>
 </body>
