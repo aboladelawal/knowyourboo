@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know Your Boo 💘 — The Relationship Oracle</title>
+<meta name="description" content="Find out who you're really dating. The Relationship Oracle decodes your love life.">
+<meta property="og:title" content="Know Your Boo 💘 — The Relationship Oracle">
+<meta property="og:description" content="Drop your traits. Drop their traits. Get the truth about your relationship.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --flame:#FF5E3A;
+  --sunset:#FF9500;
+  --gold:#FFD700;
+  --magenta:#FF2D78;
+  --purple:#A855F7;
+  --deep:#0D0015;
+  --card:#130820;
+  --peach:#FFECD2;
+  --blush:#FFB7B2;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--deep);color:#fff;
+  min-height:100vh;overflow-x:hidden;
+}
+
+/* BG */
+.bg-pattern{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 10% 40%,rgba(168,85,247,.3) 0%,transparent 50%),
+    radial-gradient(ellipse at 90% 20%,rgba(255,45,120,.25) 0%,transparent 45%),
+    radial-gradient(ellipse at 50% 90%,rgba(255,94,58,.2) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,rgba(255,149,0,.08) 0%,transparent 60%);
+}
+.floating-hearts{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.floating-hearts span{position:absolute;opacity:.06;animation:floatUp linear infinite}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) rotate(0deg) scale(1);opacity:0}
+  10%{opacity:.06}90%{opacity:.06}
+  100%{transform:translateY(-10vh) rotate(360deg) scale(1.2);opacity:0}
+}
+
+.container{max-width:540px;margin:0 auto;padding:20px 16px;position:relative;z-index:1}
+
+/* HERO */
+.hero{text-align:center;padding:32px 0 22px;animation:fadeInDown .8s ease}
+.hero-icon{font-size:3.6rem;margin-bottom:4px;animation:pulse 2.5s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1) rotate(0deg)}25%{transform:scale(1.1) rotate(-3deg)}75%{transform:scale(1.05) rotate(3deg)}}
+.hero h1{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:2.8rem;line-height:.95;
+  background:linear-gradient(135deg,#F2D4A0,#E8C17C,#F2D4A0);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:6px;
+}
+.hero .tagline{
+  font-family:'Caveat',cursive;font-size:1.35rem;
+  background:linear-gradient(90deg,#E07A7A,#D4668A);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero .sub{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:8px;line-height:1.5}
+.stats-bar{
+  display:inline-flex;gap:16px;margin-top:12px;
+  background:rgba(255,255,255,.04);padding:7px 18px;border-radius:50px;
+  font-size:.76rem;color:rgba(255,255,255,.35);
+  border:1px solid rgba(255,255,255,.06);
+}
+.stats-bar span{color:var(--gold);font-weight:700}
+
+/* FORM */
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.form-section{animation:fadeInUp .8s ease .2s both}
+
+.section-label{
+  font-family:'Caveat',cursive;font-size:1.2rem;
+  background:linear-gradient(90deg,var(--sunset),var(--magenta));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin:22px 0 10px;padding-left:4px;
+}
+
+.question-card{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:20px;padding:18px 20px;
+  margin-bottom:12px;transition:all .3s ease;
+}
+.question-card:hover{background:rgba(255,255,255,.06);border-color:rgba(255,94,58,.15)}
+.question-card:focus-within{border-color:rgba(255,94,58,.3);background:rgba(255,255,255,.06)}
+.question-card label{display:block;font-weight:600;font-size:.88rem;margin-bottom:10px;color:var(--peach)}
+.question-card label .q-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--flame),var(--magenta));
+  width:22px;height:22px;border-radius:50%;
+  font-size:.7rem;margin-right:7px;color:#fff;
+}
+.question-card label .req{color:var(--flame);margin-left:2px}
+.question-card .hint{font-size:.72rem;color:rgba(255,255,255,.3);margin-top:-4px;margin-bottom:8px}
+
+input[type="text"],input[type="number"],input[type="password"],textarea,select{
+  width:100%;padding:11px 15px;
+  background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.08);
+  border-radius:12px;color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:.86rem;
+  transition:all .3s ease;outline:none;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--flame);background:rgba(255,255,255,.08);
+  box-shadow:0 0 0 3px rgba(255,94,58,.1);
+}
+input.invalid,select.invalid,textarea.invalid{border-color:var(--flame)!important;animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+textarea{resize:vertical;min-height:64px}
+select{
+  cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23FFB7B2' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+select option{background:#130820;color:#fff}
+::placeholder{color:rgba(255,255,255,.25)}
+
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+
+/* PILLS — multi-select with numbering */
+.pill-group{display:flex;flex-wrap:wrap;gap:7px}
+.pill{
+  padding:8px 14px;border-radius:50px;
+  background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.07);
+  font-size:.8rem;cursor:pointer;
+  transition:all .3s ease;color:rgba(255,255,255,.6);
+  user-select:none;position:relative;
+}
+.pill:hover{border-color:var(--flame);color:#fff}
+.pill.selected{
+  background:linear-gradient(135deg,var(--flame),var(--magenta));
+  border-color:transparent;color:#fff;
+  box-shadow:0 2px 12px rgba(255,94,58,.25);
+}
+.pill .priority-badge{
+  position:absolute;top:-6px;right:-6px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--gold);color:#000;
+  font-size:.65rem;font-weight:700;
+  display:none;align-items:center;justify-content:center;
+}
+.pill.selected .priority-badge{display:flex}
+.pill-group.invalid .pill{border-color:var(--flame);animation:shake .4s ease}
+
+/* CTA */
+.cta-wrap{text-align:center;margin:26px 0 10px}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 48px;
+  background:linear-gradient(135deg,var(--flame),var(--magenta),var(--purple));
+  background-size:200% 200%;animation:gradientShift 3s ease infinite;
+  border:none;border-radius:60px;
+  font-family:'DM Sans',sans-serif;
+  font-size:1.05rem;font-weight:700;color:#fff;
+  cursor:pointer;transition:all .3s ease;
+  box-shadow:0 4px 24px rgba(255,94,58,.3);
+}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,94,58,.45)}
+.cta-btn:active{transform:scale(.97)}
+.cta-btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* LOADING */
+.loading-section{text-align:center;padding:60px 20px;animation:fadeInUp .5s ease}
+.loader{
+  width:56px;height:56px;margin:0 auto 18px;
+  border:3px solid rgba(255,255,255,.06);
+  border-top-color:var(--flame);border-right-color:var(--magenta);
+  border-radius:50%;animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--blush)}
+.loading-msgs{margin-top:10px;font-size:.8rem;color:rgba(255,255,255,.3);min-height:20px}
+
+/* RESULTS */
+.results-section{animation:fadeInUp .6s ease}
+.result-header{text-align:center;padding:28px 0 14px}
+.result-header .emoji-big{font-size:3rem;margin-bottom:6px}
+.result-header h2{
+  font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;
+  background:linear-gradient(135deg,var(--peach),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.score-ring-wrap{display:flex;justify-content:center;margin:16px 0}
+.score-ring{position:relative;width:150px;height:150px}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .bg{fill:none;stroke:rgba(255,255,255,.06);stroke-width:8}
+.score-ring .fill{fill:none;stroke:url(#scoreGrad);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1.5s ease}
+.score-ring .score-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring .score-num{
+  font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;line-height:1;
+  background:linear-gradient(135deg,var(--flame),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.score-ring .score-label{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:2px}
+
+.result-card{
+  background:rgba(255,255,255,.04);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.06);border-radius:20px;
+  padding:18px 20px;margin-bottom:12px;
+}
+.result-card h3{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:1.02rem;margin-bottom:8px;color:var(--peach);
+}
+.result-card p,.result-card li{font-size:.86rem;line-height:1.6;color:rgba(255,255,255,.75)}
+.result-card ul{list-style:none;padding:0}
+.result-card li{padding:5px 0;display:flex;align-items:flex-start;gap:8px}
+.result-card li::before{flex-shrink:0}
+.flag-green li::before{content:'🟢'}
+.flag-red li::before{content:'🔴'}
+.verdict-text{font-family:'Caveat',cursive;font-size:1.3rem;text-align:center;color:var(--gold);line-height:1.4}
+
+/* SHARE CARD */
+.share-card-wrap{margin:20px 0}
+.share-card{
+  position:relative;overflow:hidden;border-radius:24px;padding:28px 22px;
+  background:linear-gradient(135deg,#0D0015 0%,#5B1A72 30%,#FF5E3A 70%,#FFD700 100%);
+  text-align:center;
+}
+.share-card::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/svg%3E");
+}
+.share-card>*{position:relative;z-index:1}
+.share-card .sc-brand{font-family:'Caveat',cursive;font-size:.95rem;color:rgba(255,255,255,.45)}
+.share-card .sc-icon{font-size:2.2rem;margin:6px 0}
+.share-card .sc-title{font-family:'Playfair Display',serif;font-weight:900;font-size:1.35rem;color:#fff;margin-bottom:3px}
+.share-card .sc-verdict{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--peach);margin-bottom:12px}
+.share-card .sc-score{
+  display:inline-block;padding:8px 24px;border-radius:50px;
+  background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+  font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;
+  color:var(--gold);border:1.5px solid rgba(255,215,0,.2);margin-bottom:12px;
+}
+.share-card .sc-flags{display:flex;gap:12px;justify-content:center;font-size:.75rem;color:rgba(255,255,255,.6);margin-bottom:12px}
+.share-card .sc-flags div{background:rgba(255,255,255,.08);padding:4px 12px;border-radius:10px}
+.share-card .sc-url{font-size:.65rem;color:rgba(255,255,255,.25)}
+
+.share-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.share-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:10px 16px;border-radius:50px;
+  border:1.5px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);color:#fff;
+  font-size:.8rem;font-weight:600;cursor:pointer;
+  transition:all .3s;font-family:'DM Sans',sans-serif;
+}
+.share-btn:hover{background:rgba(255,255,255,.08);border-color:var(--flame);transform:translateY(-1px)}
+.share-btn.primary{
+  background:linear-gradient(135deg,var(--flame),var(--magenta));
+  border-color:transparent;box-shadow:0 2px 12px rgba(255,94,58,.2);
+}
+
+.try-again-wrap{text-align:center;margin:18px 0 24px}
+.try-again-btn{
+  padding:11px 24px;border-radius:50px;border:1.5px solid rgba(255,255,255,.12);
+  background:transparent;color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.86rem;font-weight:600;cursor:pointer;transition:all .3s;
+}
+.try-again-btn:hover{border-color:var(--flame);background:rgba(255,255,255,.04)}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px 16px;border-top:1px solid rgba(255,255,255,.05);margin-top:10px}
+.footer .powered{font-size:.8rem;color:rgba(255,255,255,.35);margin-bottom:10px}
+.footer .powered strong{
+  background:linear-gradient(90deg,var(--flame),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-weight:700;
+}
+.footer .socials{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.footer .socials a{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 14px;border-radius:50px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  color:rgba(255,255,255,.45);font-size:.73rem;text-decoration:none;transition:all .3s;
+}
+.footer .socials a:hover{border-color:var(--flame);color:var(--flame);background:rgba(255,94,58,.06)}
+.footer .copy{font-size:.66rem;color:rgba(255,255,255,.18);margin-top:12px}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);padding:20px;
+}
+.modal-box{
+  background:var(--card);border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;padding:28px;max-width:400px;width:100%;text-align:center;
+}
+.modal-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--peach);margin-bottom:6px}
+.modal-box p{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:14px;line-height:1.5}
+.modal-box .note{font-size:.7rem;color:rgba(255,255,255,.25);margin-bottom:14px;line-height:1.4}
+.modal-box .note a{color:var(--flame)}
+.modal-btn{
+  padding:12px 26px;border-radius:50px;border:none;
+  background:linear-gradient(135deg,var(--flame),var(--magenta));
+  color:#fff;font-weight:700;font-size:.9rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .3s;
+}
+.modal-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,94,58,.3)}
+
+.toast{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:300;
+  padding:12px 22px;border-radius:14px;font-size:.82rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);animation:fadeInDown .4s ease;
+  max-width:90%;text-align:center;
+}
+.toast.error{background:linear-gradient(135deg,#8B2252,#FF5E3A);color:#fff}
+.toast.success{background:linear-gradient(135deg,#1a6b3c,#2d9a5a);color:#fff}
+
+.hidden{display:none!important}
+@media(max-width:420px){
+  .hero h1{font-size:2.2rem}
+  .row{flex-direction:column;gap:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+<div class="floating-hearts" id="hearts"></div>
+
+<div class="container">
+
+  <!-- API KEY MODAL (fallback if both hardcoded keys fail) -->
+  <div class="modal-overlay hidden" id="apiModal">
+    <div class="modal-box">
+      <h3>🔮 Oracle is resting...</h3>
+      <p>Our AI providers are temporarily unavailable. Try again in a moment!</p>
+      <button class="modal-btn" onclick="document.getElementById('apiModal').classList.add('hidden');showOnly('form')">Try Again 💘</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div id="heroSection" class="hero">
+    <div class="hero-icon">🔮</div>
+    <h1>Know Your Boo</h1>
+    <div class="tagline">The Relationship Oracle 💘</div>
+    <div class="sub">Drop your traits. Drop their traits. Get the truth.</div>
+    <div class="stats-bar">
+      <div><span id="totalCount">1,247</span> relationships decoded</div>
+    </div>
+  </div>
+
+  <!-- ==================== FORM ==================== -->
+  <div id="formSection" class="form-section">
+
+    <!-- ===== YOUR INFO ===== -->
+    <div class="section-label">🪞 Oya, tell us about you... no cap, no filter</div>
+
+    <div class="question-card">
+      <label><span class="q-num">1</span> Your basics <span class="req">*</span></label>
+      <div class="row" style="margin-bottom:10px">
+        <input type="text" id="yourName" placeholder="Your name" required>
+        <input type="number" id="yourAge" placeholder="Your age" min="16" max="99">
+      </div>
+      <select id="yourGender" required>
+        <option value="" disabled selected>Your gender</option>
+        <option>Male</option><option>Female</option><option>Non-binary</option>
+      </select>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">2</span> YOUR love language? <span class="req">*</span></label>
+      <div class="hint">Pick up to 3 in order of priority (1st = strongest)</div>
+      <div class="pill-group" data-field="yourLoveLang" data-max="3" data-required="true">
+        <div class="pill" data-value="Words of affirmation">Words 💬<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Acts of service">Acts 🛠️<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Gifts">Gifts 🎁<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Quality time">Time ⏰<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Physical touch">Touch 🤗<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">3</span> How do YOU handle arguments? <span class="req">*</span></label>
+      <div class="hint">Pick up to 2 in order of priority (1st = go-to move)</div>
+      <div class="pill-group" data-field="yourArgStyle" data-max="2" data-required="true">
+        <div class="pill" data-value="Silent treatment">Silent treatment 🤐<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Gets loud">Gets loud 🔥<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Talks it through">Talks it out 🧘<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Quick apology">Quick sorry 🏳️<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Deflects with humor">Jokes it off 😂<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <!-- ===== BOO'S INFO ===== -->
+    <div class="section-label">😏 Now spill on your boo... no forming, just vibes</div>
+
+    <div class="question-card">
+      <label><span class="q-num">4</span> Their basics <span class="req">*</span></label>
+      <div class="row" style="margin-bottom:10px">
+        <input type="text" id="booName" placeholder="Their name" required>
+        <input type="number" id="booAge" placeholder="Their age" min="16" max="99">
+      </div>
+      <select id="booGender" required>
+        <option value="" disabled selected>Their gender</option>
+        <option>Male</option><option>Female</option><option>Non-binary</option>
+      </select>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">5</span> How long have you been together? <span class="req">*</span></label>
+      <div class="pill-group" data-field="duration" data-max="1" data-required="true">
+        <div class="pill" data-value="Just talking / Situationship">Just talking 👀<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Less than 6 months">< 6 months<span class="priority-badge"></span></div>
+        <div class="pill" data-value="6 months - 1 year">6mo – 1yr<span class="priority-badge"></span></div>
+        <div class="pill" data-value="1-3 years">1–3 yrs<span class="priority-badge"></span></div>
+        <div class="pill" data-value="3+ years">3+ yrs<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Married">Married 💍<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">6</span> THEIR love language? <span class="req">*</span></label>
+      <div class="hint">Pick up to 3 in order of priority (1st = strongest)</div>
+      <div class="pill-group" data-field="booLoveLang" data-max="3" data-required="true">
+        <div class="pill" data-value="Words of affirmation">Words 💬<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Acts of service">Acts 🛠️<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Gifts">Gifts 🎁<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Quality time">Time ⏰<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Physical touch">Touch 🤗<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">7</span> How do THEY handle arguments? <span class="req">*</span></label>
+      <div class="hint">Pick up to 2 in order of priority (1st = go-to move)</div>
+      <div class="pill-group" data-field="booArgStyle" data-max="2" data-required="true">
+        <div class="pill" data-value="Silent treatment">Silent treatment 🤐<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Gets loud">Gets loud 🔥<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Talks it through">Talks it out 🧘<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Quick apology">Quick sorry 🏳️<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Deflects with humor">Jokes it off 😂<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">8</span> Their texting style? <span class="req">*</span></label>
+      <div class="hint">Pick up to 2 in order of priority (1st = main energy)</div>
+      <div class="pill-group" data-field="textStyle" data-max="2" data-required="true">
+        <div class="pill" data-value="Double/triple texter">Double texter 📱📱<span class="priority-badge"></span></div>
+        <div class="pill" data-value="One-word replies">One word 😑<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Voice notes all day">Voice notes 🎤<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Memes and reels only">Memes only 🤣<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Fast replies, matches energy">Fast & matching ⚡<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">9</span> Their jealousy level? <span class="req">*</span></label>
+      <div class="hint">Pick up to 2 in order of priority (1st = default mode)</div>
+      <div class="pill-group" data-field="jealousy" data-max="2" data-required="true">
+        <div class="pill" data-value="Zero jealousy, very secure">Zero, secure 😎<span class="priority-badge"></span></div>
+        <div class="pill" data-value="A little jealous, cute">A little cute 🥰<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Checks your phone">Checks phone 👀<span class="priority-badge"></span></div>
+        <div class="pill" data-value="Full detective mode">FBI mode 🕵️<span class="priority-badge"></span></div>
+      </div>
+    </div>
+
+    <!-- ===== THE TEA ===== -->
+    <div class="section-label">🍵 Spill the tea</div>
+
+    <div class="question-card">
+      <label><span class="q-num">10</span> Their BEST quality?</label>
+      <textarea id="bestQuality" placeholder="e.g. Always shows up when it matters, super supportive..."></textarea>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">11</span> Their WORST habit?</label>
+      <textarea id="worstHabit" placeholder="e.g. Takes forever to reply but is always online..."></textarea>
+    </div>
+
+    <div class="question-card">
+      <label><span class="q-num">12</span> Anything else the Oracle should know? 👀</label>
+      <div class="hint">Extra tea. The juicier the better.</div>
+      <textarea id="wildcard" placeholder="e.g. Still follows their ex, cooks for me every Sunday, said I love you after 2 weeks..."></textarea>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta-btn" id="decodeBtn" onclick="decode()">🔮 Consult the Oracle</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loadingSection" class="loading-section hidden">
+    <div class="loader"></div>
+    <div class="loading-text">The Oracle is reading your vibes...</div>
+    <div class="loading-msgs" id="loadingMsg"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsSection" class="results-section hidden"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="powered">Built with 💘 by <strong>KingMufasa</strong></div>
+    <div class="socials">
+      <a href="https://x.com/__kingmufasa_" target="_blank">𝕏 @__kingmufasa_</a>
+      <a href="https://www.instagram.com/__kingmufasa_" target="_blank">📸 Instagram</a>
+      <a href="https://snapchat.com/t/yLLetSyG" target="_blank">👻 Snapchat</a>
+    </div>
+    <div class="copy">© 2025 Know Your Boo · The Relationship Oracle · All vibes reserved ✨</div>
+  </div>
+</div>
+
+<canvas id="shareCanvas" style="display:none"></canvas>
+
+<script>
+// ============================================================
+//  ⚙️ CONFIG
+// ============================================================
+const CONFIG = {
+  ADMIN_PASSWORD: 'abolade2025',
+  SUPABASE_URL: '',
+  SUPABASE_ANON_KEY: '',
+  BASE_COUNT: 1247,
+};
+
+// ============================================================
+//  STATE
+// ============================================================
+const pillSelections = {}; // { field: ['value1', 'value2'] }
+const loadingMessages = [
+  "The Oracle is reading the stars...",
+  "Consulting ancestral wisdom...",
+  "Checking both your vibes...",
+  "Analyzing green flags and red flags...",
+  "Computing compatibility matrix...",
+  "Decoding love languages...",
+  "Almost done... this one's interesting 👀",
+  "The Oracle has seen some things... 😂",
+];
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  createFloatingHearts();
+  initPills();
+  updateStats();
+});
+
+function createFloatingHearts() {
+  const c = document.getElementById('hearts');
+  const e = ['💕','💘','💖','❤️','🔮','✨','💫','🌹','💗','🧿'];
+  for (let i = 0; i < 20; i++) {
+    const s = document.createElement('span');
+    s.textContent = e[Math.floor(Math.random() * e.length)];
+    s.style.left = Math.random()*100+'%';
+    s.style.animationDuration = (8+Math.random()*14)+'s';
+    s.style.animationDelay = (Math.random()*15)+'s';
+    s.style.fontSize = (.7+Math.random()*1.2)+'rem';
+    c.appendChild(s);
+  }
+}
+
+// ============================================================
+//  PILL SYSTEM (multi-select with priority)
+// ============================================================
+function initPills() {
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const group = pill.parentElement;
+      const field = group.dataset.field;
+      const max = parseInt(group.dataset.max) || 1;
+      const value = pill.dataset.value;
+
+      if (!pillSelections[field]) pillSelections[field] = [];
+
+      if (pill.classList.contains('selected')) {
+        // Deselect
+        pill.classList.remove('selected');
+        pillSelections[field] = pillSelections[field].filter(v => v !== value);
+      } else {
+        // Select (if under max)
+        if (pillSelections[field].length >= max) {
+          if (max === 1) {
+            // Single select: deselect previous
+            group.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+            pillSelections[field] = [];
+          } else {
+            showToast(`Max ${max} choices!`, 'error');
+            return;
+          }
+        }
+        pill.classList.add('selected');
+        pillSelections[field].push(value);
+      }
+
+      // Update priority badges
+      group.querySelectorAll('.pill').forEach(p => {
+        const badge = p.querySelector('.priority-badge');
+        if (!badge) return;
+        const idx = pillSelections[field].indexOf(p.dataset.value);
+        if (idx >= 0 && max > 1) {
+          badge.textContent = idx + 1;
+          badge.style.display = 'flex';
+        } else {
+          badge.style.display = pill.classList.contains('selected') && max === 1 ? 'none' : 'none';
+        }
+      });
+
+      // Remove invalid state
+      group.classList.remove('invalid');
+    });
+  });
+}
+
+// ============================================================
+//  AI PROVIDER ENGINE (calls serverless /api/oracle)
+// ============================================================
+function buildPrompt(data) {
+  return `You are "Know Your Boo — The Relationship Oracle". You're a mystical but hilarious relationship sage. Think: village elder who's seen everything meets Twitter comedian. Warm, funny, uses Nigerian/African humor (pidgin, slang, pop culture), and surprisingly deep.
+
+You're analyzing BOTH partners to give a real compatibility reading.
+
+=== PERSON FILLING (${data.yourName}) ===
+- Age: ${data.yourAge || '??'}, Gender: ${data.yourGender}
+- Love language (priority order): ${data.yourLoveLang || '?'}
+- Argument style (priority order): ${data.yourArgStyle || '?'}
+
+=== THEIR BOO (${data.booName}) ===
+- Age: ${data.booAge || '??'}, Gender: ${data.booGender}
+- Love language (priority order): ${data.booLoveLang || '?'}
+- Argument style (priority order): ${data.booArgStyle || '?'}
+- Texting style (priority order): ${data.textStyle || '?'}
+- Jealousy level (priority order): ${data.jealousy || '?'}
+- Best quality: ${data.bestQuality || '?'}
+- Worst habit: ${data.worstHabit || '?'}
+
+=== RELATIONSHIP ===
+- Duration: ${data.duration || '?'}
+- Extra tea: ${data.wildcard || 'none'}
+
+Analyze BOTH people and their compatibility. The archetype should describe the BOO (${data.booName}), but the analysis should consider how BOTH personalities interact.
+
+Respond ONLY in valid JSON (no markdown, no backticks):
+{
+  "archetype": "Catchy 3-6 word title for the BOO e.g. 'The Certified Overthinker', 'Fine Boy With No Direction', 'Wifey Material With Trust Issues'",
+  "archetypeEmoji": "1-2 emojis",
+  "verdict": "2-3 sentence funny but insightful verdict about who ${data.yourName} is dating. Reference BOTH personalities. Nigerian humor welcome.",
+  "compatibilityScore": number 45-98,
+  "scoreExplanation": "Witty 1-2 sentence explanation referencing how their traits interact (love languages, argument styles etc)",
+  "greenFlags": ["3 genuinely positive things about ${data.booName} or the relationship dynamic, each 1 sentence"],
+  "redFlags": ["2-3 potential concerns phrased humorously but honestly, each 1 sentence"],
+  "forecast": "2-3 sentence relationship weather forecast. Factor in both personalities. Be creative and funny.",
+  "advice": "One genuinely useful piece of advice for ${data.yourName} about this specific relationship, 1-2 sentences. Be real and specific.",
+  "shareText": "Short catchy line for sharing under 100 chars with emoji"
+}`;
+}
+
+async function callOracle(data) {
+  const prompt = buildPrompt(data);
+  const res = await fetch('/api/oracle', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      prompt,
+      systemPrompt: 'You are a mystical relationship oracle. Always respond in valid JSON only. No markdown.'
+    })
+  });
+
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e.error || `Server error ${res.status}`);
+  }
+
+  const json = await res.json();
+  console.log(`🔮 Powered by: ${json.provider}`);
+  return json.result;
+}
+
+// ============================================================
+//  STORAGE
+// ============================================================
+function useSupabase() { return CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY; }
+
+async function saveSubmission(input, result) {
+  const entry = { id: Date.now().toString(36)+Math.random().toString(36).slice(2,6), timestamp: new Date().toISOString(), input, result };
+  if (useSupabase()) {
+    try {
+      await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/submissions`, {
+        method:'POST', headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON_KEY,'Authorization':`Bearer ${CONFIG.SUPABASE_ANON_KEY}`,'Prefer':'return=minimal'},
+        body:JSON.stringify(entry)
+      });
+    } catch(e) { saveLocal(entry); }
+  } else { saveLocal(entry); }
+  updateStats();
+}
+
+function saveLocal(entry) {
+  const a = JSON.parse(localStorage.getItem('kyb_subs')||'[]');
+  a.unshift(entry); localStorage.setItem('kyb_subs', JSON.stringify(a));
+}
+
+async function getSubs() {
+  if (useSupabase()) {
+    try {
+      const r = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/submissions?order=timestamp.desc&limit=100`,
+        {headers:{'apikey':CONFIG.SUPABASE_ANON_KEY,'Authorization':`Bearer ${CONFIG.SUPABASE_ANON_KEY}`}});
+      return await r.json();
+    } catch(e) {}
+  }
+  return JSON.parse(localStorage.getItem('kyb_subs')||'[]');
+}
+
+async function updateStats() {
+  const s = await getSubs();
+  const total = CONFIG.BASE_COUNT + s.length;
+  document.getElementById('totalCount').textContent = total.toLocaleString();
+}
+
+// ============================================================
+//  VALIDATION
+// ============================================================
+function validate() {
+  let valid = true;
+  const check = (id) => {
+    const el = document.getElementById(id);
+    if (!el.value || el.value === '') { el.classList.add('invalid'); valid = false; setTimeout(()=>el.classList.remove('invalid'),2000); }
+  };
+
+  check('yourName');
+  check('yourGender');
+  check('booName');
+  check('booGender');
+
+  // Check required pill groups
+  document.querySelectorAll('.pill-group[data-required="true"]').forEach(group => {
+    const field = group.dataset.field;
+    if (!pillSelections[field] || pillSelections[field].length === 0) {
+      group.classList.add('invalid');
+      valid = false;
+      setTimeout(() => group.classList.remove('invalid'), 2000);
+    }
+  });
+
+  if (!valid) showToast('Please fill in all required fields (*)', 'error');
+  return valid;
+}
+
+// ============================================================
+//  MAIN DECODE
+// ============================================================
+async function decode() {
+  if (!validate()) return;
+
+  const data = {
+    yourName: document.getElementById('yourName').value.trim(),
+    yourAge: document.getElementById('yourAge').value || '',
+    yourGender: document.getElementById('yourGender').value,
+    yourLoveLang: (pillSelections.yourLoveLang || []).join(' > '),
+    yourArgStyle: (pillSelections.yourArgStyle || []).join(' > '),
+    booName: document.getElementById('booName').value.trim(),
+    booAge: document.getElementById('booAge').value || '',
+    booGender: document.getElementById('booGender').value,
+    duration: (pillSelections.duration || [])[0] || '',
+    booLoveLang: (pillSelections.booLoveLang || []).join(' > '),
+    booArgStyle: (pillSelections.booArgStyle || []).join(' > '),
+    textStyle: (pillSelections.textStyle || []).join(' > '),
+    jealousy: (pillSelections.jealousy || []).join(' > '),
+    bestQuality: document.getElementById('bestQuality').value.trim(),
+    worstHabit: document.getElementById('worstHabit').value.trim(),
+    wildcard: document.getElementById('wildcard').value.trim(),
+  };
+
+  showOnly('loading');
+  startLoadingMsgs();
+
+  try {
+    const result = await callOracle(data);
+    await saveSubmission(data, result);
+    renderResults(result, data);
+  } catch(err) {
+    console.error(err);
+    showToast('Oracle error: '+(err.message||'Try again'), 'error');
+    showOnly('form');
+  }
+}
+
+function startLoadingMsgs() {
+  let i=0; const el=document.getElementById('loadingMsg');
+  el.textContent=loadingMessages[0];
+  window._li = setInterval(()=>{i=(i+1)%loadingMessages.length;el.textContent=loadingMessages[i]},2200);
+}
+
+// ============================================================
+//  RENDER RESULTS
+// ============================================================
+function renderResults(r, data) {
+  clearInterval(window._li);
+  const circ = 2*Math.PI*66, offset = circ-(r.compatibilityScore/100)*circ;
+
+  document.getElementById('resultsSection').innerHTML = `
+    <div class="result-header">
+      <div class="emoji-big">${r.archetypeEmoji||'🔮'}</div>
+      <h2>${data.booName} is...</h2>
+    </div>
+    <div class="result-card"><div class="verdict-text">"${r.archetype}"</div></div>
+    <div class="result-card"><p style="text-align:center;font-size:.9rem">${r.verdict}</p></div>
+
+    <div class="score-ring-wrap"><div class="score-ring">
+      <svg width="150" height="150" viewBox="0 0 150 150">
+        <defs><linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--flame)"/><stop offset="50%" stop-color="var(--magenta)"/><stop offset="100%" stop-color="var(--gold)"/>
+        </linearGradient></defs>
+        <circle class="bg" cx="75" cy="75" r="66"/>
+        <circle class="fill" cx="75" cy="75" r="66" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"/>
+      </svg>
+      <div class="score-text"><div class="score-num">${r.compatibilityScore}%</div><div class="score-label">compatible</div></div>
+    </div></div>
+    <div class="result-card"><p style="text-align:center;font-size:.8rem;color:rgba(255,255,255,.5)">${r.scoreExplanation}</p></div>
+
+    <div class="result-card"><h3>🟢 Green Flags</h3><ul class="flag-green">${r.greenFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+    <div class="result-card"><h3>🔴 Red Flags</h3><ul class="flag-red">${r.redFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+    <div class="result-card"><h3>🔮 Relationship Forecast</h3><p>${r.forecast}</p></div>
+    <div class="result-card"><h3>💡 Oracle's Advice</h3><p>${r.advice}</p></div>
+
+    <div class="share-card-wrap"><div class="share-card" id="shareCard">
+      <div class="sc-brand">Know Your Boo 🔮</div>
+      <div class="sc-icon">${r.archetypeEmoji||'🔮'}</div>
+      <div class="sc-title">${r.archetype}</div>
+      <div class="sc-verdict">${data.yourName} & ${data.booName} · ${r.compatibilityScore}%</div>
+      <div class="sc-score">${r.compatibilityScore}%</div>
+      <div class="sc-flags"><div>🟢 ${r.greenFlags.length} Green</div><div>🔴 ${r.redFlags.length} Red</div></div>
+      <div class="sc-url">Built by @__kingmufasa_ ✨</div>
+    </div></div>
+
+    <div class="share-actions">
+      <button class="share-btn primary" onclick="shareTwitter()">𝕏 Share</button>
+      <button class="share-btn" onclick="shareWhatsApp()">💬 WhatsApp</button>
+      <button class="share-btn" onclick="copyResult()">📋 Copy</button>
+      <button class="share-btn" onclick="downloadCard()">📸 Save</button>
+    </div>
+    <div class="try-again-wrap"><button class="try-again-btn" onclick="tryAgain()">🔮 Decode Another Relationship</button></div>
+  `;
+  showOnly('results');
+  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
+  window._lastResult = r; window._lastData = data;
+}
+
+// ============================================================
+//  SHARING
+// ============================================================
+function shareTwitter() {
+  const r=window._lastResult, d=window._lastData;
+  const t=`${r.shareText}\n\n${d.booName} is "${r.archetype}" ${r.archetypeEmoji}\nCompatibility: ${r.compatibilityScore}%\n\nTry it 👉 knowyourboo.app\nBuilt by @__kingmufasa_`;
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}`,'_blank');
+}
+function shareWhatsApp() {
+  const r=window._lastResult, d=window._lastData;
+  const t=`🔮 *Know Your Boo — The Relationship Oracle*\n\n${d.booName} is: *"${r.archetype}"* ${r.archetypeEmoji}\n\n${r.verdict}\n\nCompatibility: *${r.compatibilityScore}%*\n${r.scoreExplanation}\n\n🟢 ${r.greenFlags.join(' • ')}\n🔴 ${r.redFlags.join(' • ')}\n\n🔮 ${r.forecast}\n💡 ${r.advice}\n\nTry it 👉 knowyourboo.app\nBuilt by @__kingmufasa_`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(t)}`,'_blank');
+}
+function copyResult() {
+  const r=window._lastResult, d=window._lastData;
+  const t=`🔮 Know Your Boo — The Relationship Oracle\n\n${d.booName} is: "${r.archetype}" ${r.archetypeEmoji}\n${r.verdict}\nScore: ${r.compatibilityScore}%\n\n🟢 ${r.greenFlags.join(' | ')}\n🔴 ${r.redFlags.join(' | ')}\n\n🔮 ${r.forecast}\n💡 ${r.advice}\n\nTry → knowyourboo.app`;
+  navigator.clipboard.writeText(t).then(()=>showToast('Copied! 📋','success'));
+}
+function downloadCard() {
+  const r=window._lastResult, d=window._lastData;
+  const c=document.getElementById('shareCanvas'); c.width=720;c.height=960;
+  const ctx=c.getContext('2d');
+
+  // Background gradient
+  const g=ctx.createLinearGradient(0,0,720,960);
+  g.addColorStop(0,'#0D0015');g.addColorStop(.3,'#5B1A72');g.addColorStop(.7,'#FF5E3A');g.addColorStop(1,'#FFD700');
+  ctx.fillStyle=g;ctx.fillRect(0,0,720,960);
+
+  // Dot pattern
+  ctx.fillStyle='rgba(255,255,255,0.02)';
+  for(let x=0;x<720;x+=30)for(let y=0;y<960;y+=30){ctx.beginPath();ctx.arc(x+15,y+15,2,0,Math.PI*2);ctx.fill()}
+
+  ctx.textAlign='center';
+  ctx.font='600 24px Caveat,cursive';ctx.fillStyle='rgba(255,255,255,0.4)';ctx.fillText('Know Your Boo 🔮 The Relationship Oracle',360,80);
+  ctx.font='56px serif';ctx.fillText(r.archetypeEmoji||'🔮',360,170);
+  ctx.font='900 36px Playfair Display,serif';ctx.fillStyle='#fff';wrapText(ctx,r.archetype,360,250,600,44);
+  ctx.font='600 24px Caveat,cursive';ctx.fillStyle='#FFECD2';ctx.fillText(`${d.yourName} & ${d.booName} · ${r.compatibilityScore}% Compatible`,360,350);
+  ctx.font='900 72px Playfair Display,serif';ctx.fillStyle='#FFD700';ctx.fillText(`${r.compatibilityScore}%`,360,460);
+  ctx.font='500 20px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.6)';ctx.fillText(`🟢 ${r.greenFlags.length} Green Flags   🔴 ${r.redFlags.length} Red Flags`,360,530);
+  ctx.font='400 18px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.7)';wrapText(ctx,r.verdict,360,610,580,26);
+  ctx.font='600 16px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.3)';ctx.fillText('Built by @__kingmufasa_ ✨ · knowyourboo.app',360,910);
+
+  const link=document.createElement('a');
+  link.download=`know-your-boo-${d.booName.toLowerCase().replace(/\s/g,'-')}.png`;
+  link.href=c.toDataURL('image/png');link.click();
+}
+function wrapText(ctx,t,x,y,mw,lh){const w=t.split(' ');let l='',cy=y;for(const v of w){const s=l+v+' ';if(ctx.measureText(s).width>mw&&l){ctx.fillText(l.trim(),x,cy);l=v+' ';cy+=lh}else l=s}ctx.fillText(l.trim(),x,cy)}
+
+// ============================================================
+//  NAV & UTILS
+// ============================================================
+function showOnly(s) {
+  ['formSection','loadingSection','resultsSection'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  const m={form:'formSection',loading:'loadingSection',results:'resultsSection'};
+  if(m[s])document.getElementById(m[s]).classList.remove('hidden');
+}
+function tryAgain(){showOnly('form');window.scrollTo({top:0,behavior:'smooth'})}
+function showToast(msg,type='error'){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div');t.className=`toast ${type}`;t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),3500);
+}
+</script>
+</body>
+</html>
