@@ -295,6 +295,42 @@ select option{background:#130820;color:#fff}
 .footer .socials a:hover{border-color:var(--flame);color:var(--flame);background:rgba(255,94,58,.06)}
 .footer .copy{font-size:.66rem;color:rgba(255,255,255,.18);margin-top:12px}
 
+/* WELCOME MODAL */
+.welcome-overlay{
+  position:fixed;inset:0;z-index:250;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.8);backdrop-filter:blur(12px);padding:20px;
+  animation:fadeInDown .5s ease;
+}
+.welcome-box{
+  background:linear-gradient(135deg,var(--card) 0%,#1a0a2e 100%);
+  border:1px solid rgba(255,215,0,.15);
+  border-radius:28px;padding:36px 30px;max-width:380px;width:100%;text-align:center;
+  box-shadow:0 0 60px rgba(255,45,120,.12),0 0 120px rgba(168,85,247,.08);
+  animation:welcomePop .6s cubic-bezier(.175,.885,.32,1.275);
+}
+@keyframes welcomePop{0%{transform:scale(.7) rotate(-3deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.welcome-box .w-emoji{font-size:3.5rem;margin-bottom:8px;animation:welcomeBounce 1s ease infinite alternate}
+@keyframes welcomeBounce{0%{transform:translateY(0)}100%{transform:translateY(-8px)}}
+.welcome-box .w-title{
+  font-family:'Playfair Display',serif;font-weight:900;font-size:1.5rem;
+  color:var(--gold);margin-bottom:6px;line-height:1.2;
+}
+.welcome-box .w-sub{
+  font-family:'Caveat',cursive;font-size:1.25rem;
+  color:var(--blush);margin-bottom:10px;
+}
+.welcome-box .w-text{font-size:.85rem;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:18px}
+.welcome-box .w-btn{
+  padding:14px 32px;border-radius:60px;border:none;
+  background:linear-gradient(135deg,var(--flame),var(--magenta),var(--purple));
+  background-size:200% 200%;animation:gradientShift 3s ease infinite;
+  color:#fff;font-weight:700;font-size:1rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .3s;
+  box-shadow:0 4px 24px rgba(255,94,58,.3);
+}
+.welcome-box .w-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,94,58,.45)}
+
 /* MODAL */
 .modal-overlay{
   position:fixed;inset:0;z-index:200;
@@ -346,6 +382,17 @@ select option{background:#130820;color:#fff}
       <h3>🔮 Oracle is resting...</h3>
       <p>Our AI providers are temporarily unavailable. Try again in a moment!</p>
       <button class="modal-btn" onclick="document.getElementById('apiModal').classList.add('hidden');showOnly('form')">Try Again 💘</button>
+    </div>
+  </div>
+
+  <!-- WELCOME MODAL (shows for visitors from shared links) -->
+  <div class="welcome-overlay hidden" id="welcomeModal">
+    <div class="welcome-box">
+      <div class="w-emoji">😍🔮</div>
+      <div class="w-title">Ayyyy, you made it!</div>
+      <div class="w-sub">The Oracle has been expecting you 👀</div>
+      <div class="w-text">Someone sent you here because they think you need answers about your relationship.<br><br>Spoiler: <strong>you probably do.</strong> 😂</div>
+      <button class="w-btn" onclick="closeWelcome()">Let's find out who I'm dating 💘</button>
     </div>
   </div>
 
@@ -557,7 +604,20 @@ document.addEventListener('DOMContentLoaded', () => {
   createFloatingHearts();
   initPills();
   updateStats();
+  checkWelcome();
 });
+
+function checkWelcome() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('ref') || params.has('utm_source') || params.has('welcome')) {
+    document.getElementById('welcomeModal').classList.remove('hidden');
+  }
+}
+function closeWelcome() {
+  document.getElementById('welcomeModal').classList.add('hidden');
+  // Clean URL without reloading
+  window.history.replaceState({}, '', window.location.pathname);
+}
 
 function createFloatingHearts() {
   const c = document.getElementById('hearts');
@@ -863,17 +923,17 @@ function renderResults(r, data) {
 // ============================================================
 function shareTwitter() {
   const r=window._lastResult, d=window._lastData;
-  const t=`${r.shareText}\n\n${d.booName} is "${r.archetype}" ${r.archetypeEmoji}\nCompatibility: ${r.compatibilityScore}%\n\nTry it 👉 knowyourboo.app\nBuilt by @__kingmufasa_`;
+  const t=`${r.shareText}\n\n${d.booName} is "${r.archetype}" ${r.archetypeEmoji}\nCompatibility: ${r.compatibilityScore}%\n\nTry it 👉 knowyourboo.vercel.app?ref=share\nBuilt by @__kingmufasa_`;
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}`,'_blank');
 }
 function shareWhatsApp() {
   const r=window._lastResult, d=window._lastData;
-  const t=`🔮 *Know Your Boo — The Relationship Oracle*\n\n${d.booName} is: *"${r.archetype}"* ${r.archetypeEmoji}\n\n${r.verdict}\n\nCompatibility: *${r.compatibilityScore}%*\n${r.scoreExplanation}\n\n🟢 ${r.greenFlags.join(' • ')}\n🔴 ${r.redFlags.join(' • ')}\n\n🔮 ${r.forecast}\n💡 ${r.advice}\n\nTry it 👉 knowyourboo.app\nBuilt by @__kingmufasa_`;
+  const t=`🔮 *Know Your Boo — The Relationship Oracle*\n\n${d.booName} is: *"${r.archetype}"* ${r.archetypeEmoji}\n\n${r.verdict}\n\nCompatibility: *${r.compatibilityScore}%*\n${r.scoreExplanation}\n\n🟢 ${r.greenFlags.join(' • ')}\n🔴 ${r.redFlags.join(' • ')}\n\n🔮 ${r.forecast}\n💡 ${r.advice}\n\nTry it 👉 knowyourboo.vercel.app?ref=share\nBuilt by @__kingmufasa_`;
   window.open(`https://wa.me/?text=${encodeURIComponent(t)}`,'_blank');
 }
 function copyResult() {
   const r=window._lastResult, d=window._lastData;
-  const t=`🔮 Know Your Boo — The Relationship Oracle\n\n${d.booName} is: "${r.archetype}" ${r.archetypeEmoji}\n${r.verdict}\nScore: ${r.compatibilityScore}%\n\n🟢 ${r.greenFlags.join(' | ')}\n🔴 ${r.redFlags.join(' | ')}\n\n🔮 ${r.forecast}\n💡 ${r.advice}\n\nTry → knowyourboo.app`;
+  const t=`🔮 Know Your Boo — The Relationship Oracle\n\n${d.booName} is: "${r.archetype}" ${r.archetypeEmoji}\n${r.verdict}\nScore: ${r.compatibilityScore}%\n\n🟢 ${r.greenFlags.join(' | ')}\n🔴 ${r.redFlags.join(' | ')}\n\n🔮 ${r.forecast}\n💡 ${r.advice}\n\nTry → knowyourboo.vercel.app?ref=share`;
   navigator.clipboard.writeText(t).then(()=>showToast('Copied! 📋','success'));
 }
 function downloadCard() {
@@ -898,7 +958,7 @@ function downloadCard() {
   ctx.font='900 72px Playfair Display,serif';ctx.fillStyle='#FFD700';ctx.fillText(`${r.compatibilityScore}%`,360,460);
   ctx.font='500 20px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.6)';ctx.fillText(`🟢 ${r.greenFlags.length} Green Flags   🔴 ${r.redFlags.length} Red Flags`,360,530);
   ctx.font='400 18px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.7)';wrapText(ctx,r.verdict,360,610,580,26);
-  ctx.font='600 16px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.3)';ctx.fillText('Built by @__kingmufasa_ ✨ · knowyourboo.app',360,910);
+  ctx.font='600 16px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,0.3)';ctx.fillText('Built by @__kingmufasa_ ✨ · knowyourboo.vercel.app',360,910);
 
   const link=document.createElement('a');
   link.download=`know-your-boo-${d.booName.toLowerCase().replace(/\s/g,'-')}.png`;
