@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     let primary, fallback;
 
     if (hasGroq && hasGemini) {
-      primary = Math.random() < 0.90 ? 'groq' : 'gemini';
+      primary = Math.random() < 0.85 ? 'groq' : 'gemini';
       fallback = primary === 'groq' ? 'gemini' : 'groq';
     } else {
       primary = hasGroq ? 'groq' : 'gemini';
